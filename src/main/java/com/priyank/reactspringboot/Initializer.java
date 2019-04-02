@@ -36,7 +36,7 @@ class Initializer implements CommandLineRunner {
         dGroup.setEvents(Collections.singleton(event));
         repository.save(dGroup);
 
-        repository.findAll().forEach(System.out::println);
+//        repository.findAll().forEach(System.out::println);
 
     }
 }

@@ -22,7 +22,7 @@ public class Group {
     private String name;
     private String address;
     private String city;
-    private String stateOrProvince;
+    private String state;
     private String country;
     private String postalCode;
     @ManyToOne(cascade=CascadeType.PERSIST)

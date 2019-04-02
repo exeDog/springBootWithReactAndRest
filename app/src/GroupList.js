@@ -56,7 +56,7 @@ class GroupList extends Component {
                 </td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/groups/" + group.id}>Edit</Button>
+                        <Button size="sm" color="primary" tag={Link} to={`/groups/${group.id}`}>Edit</Button>
                         <Button size="sm" color="danger" onClick={() => this.remove(group.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
