@@ -14,8 +14,8 @@ class GroupList extends Component {
     componentDidMount() {
         this.setState({isLoading: false});
 
-        fetch("/groups")
-            .then(response => response.json())
+        fetch("localhost:8080/group")
+            .then(response => {response.json()})
             .then(data => this.setState({groups:data,isLoading:false}))
             .catch(err => console.log(err));
     }

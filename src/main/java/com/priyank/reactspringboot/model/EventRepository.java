@@ -3,7 +3,7 @@ package com.priyank.reactspringboot.model;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository("GroupRepository")
-public interface GroupRepository extends JpaRepository<Group,Long> {
-    Group findByName(String name);
+@Repository("EventRepository")
+public interface EventRepository extends JpaRepository<Event, Long> {
+    Event findByTitle(String title);
 }
