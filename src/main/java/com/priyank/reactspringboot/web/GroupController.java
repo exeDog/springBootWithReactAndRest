@@ -17,7 +17,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/api")
 public class GroupController {
 
     private final Logger log = LoggerFactory.getLogger(GroupController.class);
@@ -29,19 +29,19 @@ public class GroupController {
         this.groupRepository = groupRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/group")
     Collection<Group> groupCollection() {
         return groupRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/group/{id}")
     ResponseEntity<?> getGroup(@PathVariable Long id) {
         Optional<Group> group = groupRepository.findById(id);
         return group.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/")
+    @PostMapping("/group")
     ResponseEntity<Group> createGroup(@Valid @RequestBody Group group) throws URISyntaxException {
         log.info("Request to create group", group);
         Group result = groupRepository.save(group);
@@ -49,14 +49,14 @@ public class GroupController {
                 .body(result);
     }
 
-    @PutMapping("/")
+    @PutMapping("/group")
     ResponseEntity<Group> updateGroup(@Valid @RequestBody Group group) {
         log.info("Updating the group", group);
         Group group1 = groupRepository.save(group);
         return ResponseEntity.ok().body(group1);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/group/{id}")
     ResponseEntity<?> deleteGroup(@PathVariable Long id) {
         log.info("Deleting group id", id);
         groupRepository.deleteById(id);

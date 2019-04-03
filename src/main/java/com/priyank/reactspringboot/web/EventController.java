@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/api")
 public class EventController {
 
     private final Logger log = LoggerFactory.getLogger(EventController.class);
@@ -35,7 +35,7 @@ public class EventController {
         this.eventRepository = eventRepository;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/event/{id}")
     ResponseEntity<?> getEvent(@PathVariable Long id) {
         log.info("Getting event information");
         Optional<Group> group = groupRepository.findById(id);
@@ -47,7 +47,7 @@ public class EventController {
         return events != null ? ResponseEntity.ok().body(events) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/event/{id}")
     ResponseEntity<Group> addEvent(@Valid @RequestBody Event event, @PathVariable Long id) {
         log.info("Adding a new event to group id " + id);
         Optional<Group> group = groupRepository.findById(id);
@@ -60,7 +60,7 @@ public class EventController {
         return ResponseEntity.ok().body(group.get());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/event/{id}")
     ResponseEntity<Event> updateEvent(@Valid @RequestBody Event event, @PathVariable Long id) {
         log.info("Updating event id " + id);
         Event event1 = eventRepository.save(event);
@@ -68,7 +68,7 @@ public class EventController {
         return ResponseEntity.ok().body(event1);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/event/{id}")
     ResponseEntity<?> deleteEvent(@PathVariable Long id){
         log.info("Deleting event id "+id);
         eventRepository.deleteById(id);

@@ -14,10 +14,11 @@ class GroupList extends Component {
     componentDidMount() {
         this.setState({isLoading: false});
 
-        fetch("localhost:8080/group")
-            .then(response => {response.json()})
+        fetch(`/api/group`)
+            .then(response => response.json())
             .then(data => this.setState({groups:data,isLoading:false}))
             .catch(err => console.log(err));
+
     }
 
     async remove(id){
