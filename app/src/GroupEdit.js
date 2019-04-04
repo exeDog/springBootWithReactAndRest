@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import {Button, Container, Form, FormGroup, Input, Label} from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import Events from './ShowEvents';
 
 class GroupEdit extends Component {
 
@@ -26,7 +27,7 @@ class GroupEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const group = await (await fetch(`/groups/${this.props.match.params.id}`)).json();
+            const group = await (await fetch(`/api/group/${this.props.match.params.id}`)).json();
             this.setState({item: group});
         }
 
@@ -45,7 +46,7 @@ class GroupEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/group', {
+        await fetch('/api/group', {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -103,6 +104,7 @@ class GroupEdit extends Component {
                         <Button color="secondary" tag={Link} to="/groups">Cancel</Button>
                     </FormGroup>
                 </Form>
+                <Events id={this.props.match.params.id}/>
             </Container>
         </div>
     }

@@ -55,6 +55,7 @@ public class EventController {
             Set<Event> events = group.get().getEvents();
             events.add(event);
             group.get().setEvents(events);
+           groupRepository.save(group.get());
         }
 
         return ResponseEntity.ok().body(group.get());

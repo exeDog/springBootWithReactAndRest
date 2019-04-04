@@ -23,7 +23,7 @@ class GroupList extends Component {
 
     async remove(id){
 
-        await fetch(`/group/${id}`,{
+        await fetch(`/api/group/${id}`,{
             method: "DELETE",
             headers: {
                 'Accept': 'application/json',
