@@ -12,6 +12,7 @@ class Home extends Component{
                 <Container fluid>
                     <Button color="link"><Link to="/groups">Manage</Link></Button>
                     <Button color="link"><Link to="/groups/new">Add New</Link></Button>
+                    <Button color="link"><Link to="/users">Add New User</Link></Button>
                 </Container>
             </div>
         )

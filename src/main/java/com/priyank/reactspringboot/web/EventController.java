@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import javax.validation.Valid;
+import java.net.URISyntaxException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class EventController {
     }
 
     @PostMapping("/event/{id}")
-    ResponseEntity<Group> addEvent(@Valid @RequestBody Event event, @PathVariable Long id) {
+    ResponseEntity<Group> addEvent(@Valid @RequestBody Event event, @PathVariable Long id) throws URISyntaxException {
         log.info("Adding a new event to group id " + id);
         Optional<Group> group = groupRepository.findById(id);
         if (group.isPresent()) {

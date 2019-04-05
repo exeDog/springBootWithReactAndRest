@@ -9,13 +9,20 @@ class EventEdit extends Component{
     constructor(props) {
         super(props);
         this.state = {
-           title: '',
-            // date: Date.now(),
-            description:  ''
+            title: '',
+            description:  '',
+            attendees: [],
+            selectedUsers: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit =  this.handleSubmit.bind(this);
+        this.addToUsers =  this.addToUsers.bind(this);
+    }
+
+    async componentDidMount(){
+
+        await fetch(("/api/users")).then(response => response.json()).then(data => this.setState({attendees: data}));
     }
 
     handleChange(event){
@@ -41,13 +48,23 @@ class EventEdit extends Component{
         this.props.history.push(`/groups/${id}`);
     }
 
+    addToUsers(event){
+        const userList  = [];
+        userList.push(event.target.value);
+        this.setState({selectedUsers: userList});
+    }
+
 
     render() {
 
-        const {title,date,description} = this.state;
+        const {title, attendees, description} = this.state;
         const id = this.props.match.params.id;
 
+        const selectOptions = attendees.map(att => <option key={att.id} value={att}>{att.name}</option>);
+
         return <Container>
+            <AppNavbar/>
+            <br/>
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                 <InputGroup>
@@ -59,6 +76,14 @@ class EventEdit extends Component{
                 <InputGroup>
                     <InputGroupAddon addonType='prepend'>Event Description</InputGroupAddon>
                     <Input placeholder ='Enter the event details' value={description} id='description' name='description' type="textarea" onChange={this.handleChange}/>
+                </InputGroup>
+                </FormGroup>
+                <FormGroup>
+                <InputGroup>
+                    <InputGroupAddon addonType='prepend'>Event Attendees</InputGroupAddon>
+                    <Input id='attendees' name='attendees' type="select" onChange={this.addToUsers}>
+                        {selectOptions}
+                    </Input>
                 </InputGroup>
                 </FormGroup>
                 <FormGroup>

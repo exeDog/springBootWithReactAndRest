@@ -13,10 +13,12 @@ class ShowEvents extends Component{
 
     async componentDidMount(){
         const id  =  this.props.id;
-        await fetch(`/api/event/${id}`)
-            .then(response => response.json())
-            .then(data => this.setState({events: data}))
-            .catch(err => console.log(err));
+        if(this.props.id !== 'new'){
+            await fetch(`/api/event/${id}`)
+                .then(response => response.json())
+                .then(data => this.setState({events: data}))
+                .catch(err => console.log(err));
+        }
     }
 
     render() {
@@ -24,11 +26,16 @@ class ShowEvents extends Component{
         const {events} = this.state;
 
         const data = events.map(event => {
+            const newArr = [];
+            event.attendees.forEach(attendee => newArr.push(attendee.name));
+            let str = newArr.reduce((prev,current)=>prev + current);
+
             return(
              <tr key={event.id}>
                  <td style={{whiteSpace: 'nowrap'}}>{event.title}</td>
                  <td>{event.date}</td>
                  <td>{event.description}</td>
+                 <td>{str}</td>
              </tr>
             )
         });
@@ -40,6 +47,7 @@ class ShowEvents extends Component{
                     <th width="20%">Title</th>
                     <th width="20%">Date</th>
                     <th width="40%">Description</th>
+                    <th width="40%">Attendees</th>
                 </tr>
                 </thead>
                 <tbody>
