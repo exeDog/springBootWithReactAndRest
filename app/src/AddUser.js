@@ -48,7 +48,7 @@ class AddUser extends Component{
 
     async refreshData(){
         await fetch("/api/users").then(response => response.json())
-            .then(data => this.setState({users: data}));
+            .then(data => {this.setState({users: data})});
     }
 
     render() {

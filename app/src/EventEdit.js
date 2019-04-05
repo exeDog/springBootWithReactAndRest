@@ -12,7 +12,7 @@ class EventEdit extends Component{
             title: '',
             description:  '',
             attendees: [],
-            selectedUsers: []
+            users: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +22,7 @@ class EventEdit extends Component{
 
     async componentDidMount(){
 
-        await fetch(("/api/users")).then(response => response.json()).then(data => this.setState({attendees: data}));
+        await fetch(("/api/users")).then(response => response.json()).then(data => {this.setState({users: data})});
     }
 
     handleChange(event){
@@ -49,18 +49,18 @@ class EventEdit extends Component{
     }
 
     addToUsers(event){
-        const userList  = [];
-        userList.push(event.target.value);
-        this.setState({selectedUsers: userList});
+        const userList  = [...this.state.attendees];
+        userList.push(JSON.parse(event.target.value));
+        this.setState({attendees: userList});
     }
 
 
     render() {
 
-        const {title, attendees, description} = this.state;
+        const {title, users, description} = this.state;
         const id = this.props.match.params.id;
 
-        const selectOptions = attendees.map(att => <option key={att.id} value={att}>{att.name}</option>);
+        const selectOptions = users.map(att => <option key={att.id} value={JSON.stringify(att)}>{att.name}</option>);
 
         return <Container>
             <AppNavbar/>

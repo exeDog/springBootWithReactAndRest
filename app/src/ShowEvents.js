@@ -26,18 +26,20 @@ class ShowEvents extends Component{
         const {events} = this.state;
 
         const data = events.map(event => {
-            const newArr = [];
-            event.attendees.forEach(attendee => newArr.push(attendee.name));
-            let str = newArr.reduce((prev,current)=>prev + current);
+            if(event.attendees.length > 0){
+                const newArr = [];
+                event.attendees.forEach(attendee => newArr.push(attendee.name));
+                let str = newArr.reduce((prev,current)=>prev + current);
 
-            return(
-             <tr key={event.id}>
-                 <td style={{whiteSpace: 'nowrap'}}>{event.title}</td>
-                 <td>{event.date}</td>
-                 <td>{event.description}</td>
-                 <td>{str}</td>
-             </tr>
-            )
+                return(
+                    <tr key={event.id}>
+                        <td style={{whiteSpace: 'nowrap'}}>{event.title}</td>
+                        <td>{event.date}</td>
+                        <td>{event.description}</td>
+                        <td>{str}</td>
+                    </tr>
+                )
+            }
         });
 
         return <Container>
